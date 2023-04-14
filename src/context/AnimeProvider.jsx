@@ -3,7 +3,7 @@ import { AnimeContext } from "./AnimeContext";
 
 export const AnimeProvider = ({ children }) => {
  const [animes, setAnimes] = useState([]);
- const [query, setQuery] = useState([])
+ const [query, setQuery] = useState('')
  
 
 

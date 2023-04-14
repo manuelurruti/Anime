@@ -12,7 +12,7 @@ export const Header = () => {
     <div> 
     <div className="asd">
      <h2>Anime!</h2>
-     <input type="text" onChange={event => setQuery(event.target.value)} value={query} placeholder="Busca tu campeon!" />
+     <input type="text" onChange={event => setQuery(event.target.value)} value={query} placeholder="Search your favourite anime!" />
 
      <p>Buscando: {capitalizedQuery}</p>
     </div>
