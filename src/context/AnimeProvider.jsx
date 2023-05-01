@@ -8,10 +8,10 @@ export const AnimeProvider = ({ children }) => {
 
 
  useEffect(() => {
-  const fetchAnimes = async () => {
+  const fetchAnimes = async (limit = 10) => {
     try {
-      const URL = `https://api.jikan.moe/v4/anime?&limit=20`;
-      const res = await fetch(URL);
+      const URL = `https://api.jikan.moe/v4/anime?&limit`;
+      const res = await fetch(`${URL}=${limit}`);
         const data = await res.json();
         setAnimes(data.data)
 
@@ -29,13 +29,13 @@ export const AnimeProvider = ({ children }) => {
 }, []);
 
 useEffect(() => {
-  const searchAnime = async () =>{
+  let timeoutId;
+  const searchAnime = async (limit = 10) =>{
     try {
-      const url = `https://api.jikan.moe/v4/anime?q=${query}&limit=20`
+      const url = `https://api.jikan.moe/v4/anime?q=${query}&limit=${limit}`
       const res = await fetch(url);
       const data = await res.json()
       setAnimes(data.data)
-
   
     }
     catch(error){
@@ -43,9 +43,20 @@ useEffect(() => {
     }
   }
   
-  searchAnime()
-  },[query])
+  const handleSearch = () => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      searchAnime();
+    }, 500);
+  };
 
+  handleSearch();
+  
+
+  return () => {
+    clearTimeout(timeoutId);
+  }
+},[query])
 
 
   return (
